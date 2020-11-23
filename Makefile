@@ -77,6 +77,14 @@ else ifeq ($(platform), macos)
 	arch_name = x86_64-apple-darwin
 	host = $(arch_name)
 	ARCHS ?= $(arch)
+else ifeq ($(platform), silicon)
+	PLATFORM_PREFIX=silicon
+	sdk = $(shell xcrun --sdk macosx --show-sdk-path)
+	platform_version_min = macosx-version-min="10.13"
+	arch = arm64
+	arch_name = arm-apple-darwin64
+	host = $(arch_name)
+	ARCHS ?= $(arch)
 endif
 
 INCLUDE_DIR   = $(shell pwd)/$(PLATFORM_PREFIX)/include
@@ -114,7 +122,7 @@ dependant_libs = $(install_libpngfat) $(install_libjpegfat) $(install_libtifffat
 
 common_cflags = -arch $(arch) -pipe -no-cpp-precomp -isysroot $$SDKROOT -m$(platform_version_min) -O2
 
-ifneq (,$(filter $(platform),ios simulator catalyst macos))
+ifneq (,$(filter $(platform),ios simulator catalyst macos silicon))
 .PHONY : all
 all : $(dependant_libs)
 else
