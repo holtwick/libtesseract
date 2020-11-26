@@ -7,6 +7,7 @@ let package = Package(
     products: [
         .library(
             name: "libtesseract",
+            type: .static,
             targets: ["libtesseract"]
         ),
     ],
@@ -15,11 +16,6 @@ let package = Package(
         .binaryTarget(
             name: "libtesseract",
             path: "./build/libtesseract.xcframework")
-        //        .binaryTarget(
-        //            name: "libtesseract",
-        //            url: "https://dl.bintray.com/steven0351/tesseract/libtesseract-0.1.0.xcframework.zip",
-        //            checksum: "f732c6e1bbdbbdec87201841a4654d4d22e055e960ec618d48f5ec8141331af7"
-        //        )
     ]
 )
 
