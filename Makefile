@@ -6,16 +6,15 @@
 # Many dragons lie beyond this comment block
 PNG_VERSION     := 1.6.36
 PNG_NAME        := libpng-$(PNG_VERSION)
-JPEG_SRC_NAME   := jpegsrc.v9c
+JPEG_SRC_NAME   := jpegsrc.v9d
 # folder name after the JPEG_SRC_NAME archive has been unpacked
-JPEG_DIR_NAME   := jpeg-9c
-TIFF_NAME       := tiff-4.0.10
+JPEG_DIR_NAME   := jpeg-9d
+TIFF_NAME       := tiff-4.1.0
 
-TESSERACT_VERSION ?= 4.1.0
+TESSERACT_VERSION ?= 4.1.1
 TESSERACT_NAME    := tesseract-$(TESSERACT_VERSION)
-LEPTONICA_VERSION ?= 1.79.0
+LEPTONICA_VERSION ?= 1.80.0
 LEPTON_NAME       := leptonica-$(LEPTONICA_VERSION)
-
 
 SRC_DIR = $(shell pwd)
 TESSERACT_SRC = $(SRC_DIR)/$(TESSERACT_NAME)
@@ -226,7 +225,7 @@ $(TESSERACT_SRC)/$(PLATFORM_PREFIX)/%/Makefile : $(libtessconfig) $(install_libl
 	mkdir -p $(@D) ; \
 	cd $(@D) ; \
 	ln -s $(LEPTON_SRC)/src/ leptonica ; \
-	../../configure CXX="$(TARGET_CXX) --target=$(arch_name)" CC="$(TARGET_CC) --target=$(arch_name)" --host=$(host) --prefix=`pwd` --enable-shared=no --disable-graphics
+	../../configure CXX="$(TARGET_CXX) --target=$(arch_name)" CC="$(TARGET_CC) --target=$(arch_name)" --host=$(host) --prefix=`pwd` --enable-shared=no --disable-legacy --disable-graphics 
 
 $(libtessconfig) : $(libtessautogen)
 	cd $(@D) && ./autogen.sh 2> /dev/null
@@ -257,7 +256,7 @@ $(LEPTON_SRC)/$(PLATFORM_PREFIX)/%/Makefile : $(install_libtifffat) $(install_li
 	export CC="$(TARGET_CC) --target=$(arch_name)" ; \
 	mkdir -p $(@D) ; \
 	cd $(@D) ; \
-	../../configure CXX="$(TARGET_CXX) --target=$(arch_name)" CC="$(TARGET_CC) --target=$(arch_name)" --host=$(host) --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --with-libtiff --without-giflib --without-libwebp --without-libwebpmux
+	../../configure CXX="$(TARGET_CXX) --target=$(arch_name)" CC="$(TARGET_CC) --target=$(arch_name)" --host=$(host) --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --with-libtiff --without-libopenjpeg --without-giflib --without-libwebp --without-libwebpmux
 
 $(libleptconfig) : $(libleptautogen)
 	cd $(@D) && ./autogen.sh 2> /dev/null
