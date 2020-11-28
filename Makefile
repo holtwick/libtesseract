@@ -11,7 +11,7 @@ JPEG_SRC_NAME   := jpegsrc.v9d
 JPEG_DIR_NAME   := jpeg-9d
 TIFF_NAME       := tiff-4.1.0
 
-TESSERACT_VERSION ?= 4.1.1
+TESSERACT_VERSION ?= 4.1
 TESSERACT_NAME    := tesseract-$(TESSERACT_VERSION)
 LEPTONICA_VERSION ?= 1.80.0
 LEPTON_NAME       := leptonica-$(LEPTONICA_VERSION)
@@ -156,7 +156,6 @@ $(TIFF_SRC)/%/Makefile : $(libtiffconfig)
 	mkdir -p $(@D) ; \
 	cd $(@D) ; \
 	../configure CXX="$(TARGET_CXX) --target=$(arch_name)" CC="$(TARGET_CC) --target=$(arch_name)" --host=$(host) --enable-fast-install --enable-shared=no --prefix=`pwd` --without-x --with-jpeg-include-dir=$(abspath $(@D)/../../$(JPEG_DIR_NAME)/$(arch)/include) --with-jpeg-lib-dir=$(abspath $(@D)/../../$(JPEG_DIR_NAME)/$(arch)/lib)
-
 
 $(install_libpngfat) : $(libpng)
 	mkdir -p $(@D)
