@@ -54,14 +54,22 @@ rm include/*.h combined.a
 
 make distclean
 build macos
+cp combined.a macos.a
+
+rm include/*.h combined.a
+
+build silicon
+cp combined.a silicon.a
 
 # There is an issue with the macro expansion for fract1 on macOS that causes the xcframework to not be useable
 sed -ie 's/.*fract1.*//' include/allheaders.h
+ 
+lipo -create -output combined.a macos.a silicon.a
 
 xcodebuild -project libtesseract.xcodeproj \
   -scheme 'libtesseract macOS' \
   -sdk macosx \
-  -destination 'platform=OS X,arch=x86_64' \
+  -destination 'platform=OS X' \
   -configuration 'Release' \
   SYMROOT=$(pwd)/build \
   -derivedDataPath ./DerivedData \
